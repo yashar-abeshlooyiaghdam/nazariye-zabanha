@@ -1,0 +1,297 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{xcolor}
+
+
+\begin{document}
+\begin{flushright}
+ \texttt{Computational Complexity} \hspace*{0.10cm}\textbf{$|$} \textbf{557}\hspace*{0.5cm}
+\end{flushright}
+
+\vspace*{1cm}
+\large{
+\textbf{12.6 Non-polynomial Time Complexity}\\
+}
+
+\vspace*{0.2cm}
+Non-deterministic polynomial time is abbreviated as NP time. For these types of problems if we are able
+to certify a solution anyhow then it becomes easy to prove its correctness using the polynomial time
+algorithm. For this reason, NP class problems are called polynomial time verifiable. In NP problem, it
+is allowed to make a guess about the answer, and then to verify the correctness of the answer done in
+polynomial time. Let us consider the case of the vertex cover problem. A vertex cover of a graph G is
+the set of vertices C such that each edge of G is incident to at least one vertex of C. If a set of vertices is
+chosen, it can be easily checked in polynomial time whether the set of vertices is a vertex cover of G or
+not. To find the minimum, such vertex cover is called minimum vertex cover problem. This problem is
+in class NP.\\
+
+\hspace*{0.5cm} NP is the set of all decision problems that can be solved in polynomial time on a non-deterministic
+Turing machine. Already, we have discussed about deterministic and non-deterministic Turing
+machines. The difference between a deterministic and non-deterministic Turing machine is that the
+deterministic one operates like a conventional computer, performing each instruction in sequence,
+forming a computational path, whereas a non-deterministic Turing machine can form a ‘branch off’
+where each branch can execute a different statement in parallel, forming a computational tree. The time
+required to solve the NP problem using any currently known algorithm increases very quickly as the
+size of the problem grows.\\
+\vspace*{0.3cm}
+
+$Definition$: NP is defined as the set of all decision problems for which an algorithm exists which can be
+carried out by a non-deterministic Turing machine in polynomial time.\\
+\hspace*{0.5cm} Consider some examples.\\
+
+\vspace*{0.3cm}
+\fcolorbox{black}{blue}{\textbf{\textcolor[rgb]{1.00,1.00,1.00}{Example 12.13}}}\hspace*{0.1cm} \textbf{Prime Factorization:} A number N can be decomposed into prime numbers where
+$N \geq 2$ such that $N = p _{1} \times p _{2} \times . . . . . . p _{k}$, where pi are k prime numbers. But there are
+some numbers which have only two prime factors. ‘Prime factorization’ is finding which prime numbers
+multiply together to make the original number.\\
+\hspace*{0.5cm} Consider a number N, which has to be broken into two factors. The process is\\
+
+\vspace*{0.2cm}
+\hspace*{0.5cm} i) Guess two numbers A and B.\\
+\hspace*{0.5cm} ii) Multiply B times A, and check whether the result matches with N.\\
+
+\vspace*{0.2cm}
+The checking can be performed in polynomial time.\\
+\hspace*{0.5cm} The algorithm seems to be easy, but not really. In 2009, several researchers factored a 232-digit number,
+utilizing several hundreds of machines. It took more than 2 years. These types of large numbers left
+for prime factorization are called RSA number.
+There are huge amounts of cash prizes for finding the
+factors of these large numbers! Prime factorization of such large numbers is used for RSA public key
+cryptography.\\
+
+\vspace*{0.3cm}
+
+\fcolorbox{black}{blue}{\textbf{\textcolor[rgb]{1.00,1.00,1.00}{Example 12.14}}}\hspace*{0.1cm} \textbf{Traveling Salesman Problem:} The problem is to find the minimum distance covered
+by a salesman who wishes to travel around a given set of cities, travelling each
+city exactly once and returning to the beginning.\\
+\hspace*{0.5cm}  Let us consider that an area of travelling consists of 4 cities as given in the following. The cost (distance)
+to travel from one city to another is given in the following matrix. We are assuming that the cost of
+ith node to jth node is the same as the cost of jth to ith. [They may be different (if the road is one way).]
+
+\newpage
+\begin{flushleft}
+    \textbf{558}\hspace*{0.1cm} \textbf{$|$} \hspace*{0.1cm} \texttt{Introduction to Automata Theory, Formal Languages and Computation}
+  \end{flushleft}
+
+\vspace*{0.5cm}
+\begin{multicols}{2}
+\begin{center}
+\section{picture}
+\includegraphics[width=4cm,height=3cm]{557.png}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+ \hline
+
+ \hline
+  & 1 & 2  & 3   & 4\\
+\hline
+1 & 0 & 20 & 35  &42\\
+\hline
+2 & 20& 0  & 34  &30\\
+\hline
+3 & 30& 34 & 0   &12\\
+\hline
+4 & 41& 30 &12   &0\\
+ \hline
+
+ \hline
+
+ \hline
+\end{tabular}
+\end{center}
+\end{multicols}
+
+
+\hspace*{0.5cm} Consider a tour starts and ends on node 1. From node 1, the person has to follow the path going
+to any of 2, 3, or 4 and returning to 1. In general, we can say that the tour consists of an edge
+$\langle1, k\rangle , k \in V -\{1\}$ (V is the set of all vertices) and a path from k to 1. According to the condition of the
+problem, the salesman can travel each city exactly once.
+
+ Thus, the path from k to 1 must go through
+all the vertices in $V -\{1, k\}$, and this path must be the shortest. Let the length of the shortest path
+starting from node i and covering all the nodes exactly once and ending on node I be $l(i, S)$. If $i = 1$,
+then the function becomes\\
+
+\begin{center}
+
+$l(1,V - \{1\}) = min \{c _{lk} +1 (k,V {1,k})\}$\\
+\hspace*{0.1cm} \tiny{$2\leq k \leq n$} \\
+\end{center}
+
+$c _{1k}$ is the cost of node 1 to node k.\\
+\hspace*{0.5cm} In general, it can be written as\\
+
+\begin{center}
+  $l(i,S) = min\{c _{ij} + 1 (j,S - \{j\})$ \\
+  \hspace*{-0.5mm} \tiny{$j\in s$} \\
+\end{center}
+
+\vspace*{0.1cm}
+where $i \neq S$.\\
+\hspace*{0.5cm} If $n = 4, i = 1$, then $S = \{2, 3, 4\}$.\\
+\hspace*{0.5cm} So, $l(1, \{2, 3, 4\}) = min\{[c _{12} + l(2, \{3, 4\})], [c _\{13\} + l(3, \{2, 4\})], [c _{14} + l(4, \{2, 3\})]\}$\\
+\vspace*{0.2cm}
+
+\hspace*{1.5cm} $l(2, \{3, 4\}) = min\{[c_23 + l(3, \{4\})], [c_24 + l(4, \{3\})]\}$ \\
+\hspace*{1.5cm} $l(3, \{2, 4\}) = min\{[c_32 + l(2, \{4\})], [c_34 + l(4, \{2\})]\}$ \\
+\hspace*{1.5cm} $l(4, \{2, 3\}) = min\{[c_42 + l(2, \{3\})], [c_43 + l(3, \{2\})]\}$ \\
+
+\vspace*{0.2cm}
+
+\hspace*{2cm} $l(3, \{4\}) = min\{c_34 + l(4, {\O})\} = 12 + 41 = 53 [l(4, {\O}) = c_41]$ \\
+\hspace*{2cm} $l(4, \{3\}) = min\{c_43 + l(3, {\O})\} = 12 + 30 = 42 [l(3, {\O}) = c_31]$ \\
+\hspace*{2cm} $l(2, \{4\}) = min\{c_24 + l(4, {\O})\} = 30 + 41 = 71 [l(4, {\O}) = c_41]$ \\
+\hspace*{2cm} $l(4, \{2\}) = min\{c_42 + l(2, {\O})\} = 30 + 20 = 50 [l(2, {\O}) = c_21]$ \\
+\hspace*{2cm} $l(2, \{3\}) = min\{c_23 + l(3, {\O})\} = 34 + 30 = 64 [l(3, {\O}) = c_31]$ \\
+\hspace*{2cm} $l(3, \{2\}) = min\{c_32 + l(2, {\O})\} = 34 + 20 = 54 [l(2, {\O}) = c_21]$ \\
+\vspace*{0.2cm}
+
+\hspace*{1.5cm} $l(2, \{3, 4\}) = min\{[34 + 53], [30 + 42]\} = min\{87, 72\} = 72$ \\
+\hspace*{1.5cm} $l(3, \{2, 4\}) = min\{[34 + 71], [12 + 50]\} = min\{105, 62\} = 62$ \\
+\hspace*{1.5cm} $l(4, \{2, 3\}) = min\{[30 + 64], [12 + 54]\} = min \{94, 66\} = 66$ \\
+
+\vspace*{0.2cm}
+\hspace*{0.5cm} $l(1, \{2, 3, 4\}) = min\{[20 + 72], [35 + 62], [42 + 66]\} = min\{92, 97, 108\} = 92$ \\
+
+\vspace*{0.3cm}
+\hspace*{0.5cm} If the element of the set S is 3, there are 3 distinct choices for i. If $| S |$ is 2, there are 2 distinct choices
+for i. In general, for each value of $| S |$ there are $n - 1$ distinct choices for i.\\
+
+\newpage
+\begin{flushright}
+ \texttt{Computational Complexity} \hspace*{0.10cm}\textbf{$|$} \textbf{559}\hspace*{0.5cm}
+\end{flushright}
+\vspace*{0.5cm}
+
+\hspace*{0.5cm} Not including 1 and I, the number of distinct sets of size k that can be constructed is $^{n - 2}C _{k}$ . The number of steps required for TSP of node n is\\
+
+\begin{center}
+\section{picture}
+\includegraphics[width=11cm,height=1cm]{559.png}
+\end{center}
+
+\hspace*{0.5cm} We know that $(1+x) ^{n} = ^{n} C _{0} x ^{0} + ^{n} C _{1} x ^{1} + ^{n} C _{2} x ^{2} + ...... + ^{n} C _{n} x ^{n}$ .If we put $x = 1$, it becomes $2 ^{n}$. \\
+Therefore, the simplification of the previous formula is $(n-1)2 ^{n-1}$ .\\
+\hspace*{0.5cm} The complexity of the problem is $O(n2 ^{n})$, and it is an NP problem.\\
+The complexity of the problem is O(n2n), and it is an NP problem.\\
+
+\vspace*{0.3cm}
+\fcolorbox{black}{blue}{\textbf{\textcolor[rgb]{1.00,1.00,1.00}{Example 12.15}}}\hspace*{0.1cm} \textbf{Vertex Cover Problem:} It is one type of optimization problem in computer science.
+
+Given a graph G, the aim is to find the minimum vertex cover $C \subseteq G$.\\
+\hspace*{0.5cm} Given a graph $G = \{V, E\}$ and an integer $k \leq V$, the problem is to find $V'$, subset of at most k vertices,
+such that each edge of G is incident to at least one vertex in $V'$.\\
+\hspace*{0.5cm} The algorithm can be constructed by assuming a set of k vertices C for a given graph G. We have to
+check whether there exists a vertex cover of $\leq k$ vertices.\\
+\hspace*{0.5cm} The checking can be done by the following steps.\\
+
+\vspace*{0.2cm}
+i) Check whether $C$ contains at most $k$ number of vertices.\\
+ii) Check whether $C$ is a vertex cover of $G$.\\
+\texttt{
+\hspace*{2cm} $Input G = \{V, E\}, C= \{V'\}, where | V' |\leq k$\\
+\hspace*{2cm} $for i = 1 to | E |$\\
+\hspace*{2.5cm} $check the edges ends on V'i$\\
+\hspace*{2.5cm} $remove them from \{E\}$.\\
+\hspace*{2cm} $End$\\
+}
+\vspace*{0.2cm}
+Thus, this checking operation is performed in $O(| V' |+| E |)$ i.e. in polynomial time.\\
+\hspace*{0.5cm} A graph with n number of vertices can have $2 ^{n}$ number of such vertex combination. For each of the
+combinations, the same checking algorithm is performed. Among these, the set of vertices with minimum
+number is the minimum vertex cover of $G$. So, a minimum vertex cover algorithm is carried out
+by a non-deterministic Turing machine in polynomial time.\\
+
+\vspace*{0.5cm}
+\large{
+\textbf{12.7 Polynomial Time Reducibility}\\
+}
+
+\vspace*{0.2cm}
+In a deterministic Turing machine for a single state and single input, there is only one move. Thus,
+a problem fed to a deterministic Turing machine is either solved or not. $Polynomial-time reduction$
+is a reduction which is computable by a deterministic Turing machine in polynomial time. This is
+called polynomial time many-to-one reduction. A reduction which converts instances of one decision
+problem into instances of a second decision problem is called many to one reduction proposed by
+Emil Post (1944). Already we have learnt about Turing reduction where a problem A is reduced to a
+problem B, to solve A, assuming B is already known. Many-to-one reductions are stronger than the
+Turing reduction.\\
+\hspace*{0.5cm} The polynomial time reducibility concept is used in the standard definitions of NP complete.\\
+\hspace*{0.5cm} If $P _{1}$ and $P _{2}$ are two decision problems, then a problem $P_{1}$ is called polynomial time reducible to $P _{2}$ if
+there is a polynomial time algorithm which transforms an instance of $P _{1}$ to an instance of $P _{2}$.\\
+
+
+\newpage
+\begin{flushleft}
+    \textbf{560}\hspace*{0.1cm} \textbf{$|$} \hspace*{0.1cm} \texttt{Introduction to Automata Theory, Formal Languages and Computation}
+  \end{flushleft}
+
+\vspace*{0.5cm}
+\textbf{$Theorem 1$:} If there is a polynomial time reduction from problem $P_{1}$ to problem $P_{2}$ and if problem $P_{2}$ is
+in $P$, then $P_{1}$ also is in $P$.\\
+
+\vspace*{0.2cm}
+\textbf{$Proof:$} A Problem $P_{1}$ is polynomial time reducible to $P_{2}$ if there is a polynomial time algorithm which
+converts an instance of $P_{1}$ to an instance of $P_{2}$. Let the size of the input of $P_{1}$ be n. According to the
+condition of polynomial time reducibility, the instance of $P_{2}$ from the instance of $P_{1}$ can be obtained in
+polynomial time. Let the time complexity of this conversion be $O(n^{i})$. According to the big oh notation,
+f(n) is said to be O(g(n)) if there exists a positive constant C and a value k such that $f(n) \leq Cg(n)$ for all
+$n \geq k$. Thus, the size of the converted instance of $P_{2}$ is less than or equal to $Cn^{i}$, where C is a constant.\\
+The problem $P_{2}$ is in P. Let the complexity of solving a problem in $P_{2}$ be $O(m^{k})$ where m is the size of the
+problem instance of $P_{2}$. Thus, the instance of $P_{2}$ of size $Cn^{i}$ can be solved in complexity $O((Cn^{i})^{k})$. The
+total conversion time from the input in $P_{1}$ to the solution by $P_{2}$ (in other words the solution of problem
+$P_{1}$) takes $O(n^{i} +(Cn^{i})^{k}) = O(n^{i} +C^{k}n^{ik}) = O(n^{ik})$. It is in polynomial time. It is proved that $P_{1}$ is in P.\\
+
+\begin{center}
+\section{picture}
+\includegraphics[width=10cm,height=2cm]{560.png}
+\end{center}
+
+\large{
+\textbf{12.8 Deterministic and Non-deterministic Algorithm}\\
+}
+
+\vspace*{0.2cm}
+\small{An algorithm is called a deterministic algorithm if, for a function, the output generated for a given input
+is the same for all trials. The behaviour of this type of algorithm is predictable as the underlying machine
+follows the same sequence of states for a given input to produce output.}
+ A mathematical function is deterministic. Hence, the state is known at every step of the algorithm.\\
+\hspace*{0.5cm}An algorithm is called a non-deterministic algorithm if, for a function, the output generated for a
+given input is different for different trails. An algorithm that solves a problem in non-deterministic polynomial
+time can run in polynomial time or exponential time depending on the choices it makes during
+execution. An algorithm is non-deterministic if the underlying machine follows a different sequence of
+states for a given input. Some examples of non-deterministic algorithm are spanning tree construction
+algorithm, searching algorithm, merge sort algorithm, vertex set covering problems, etc. To know more
+about these problems, follow some books on algorithm.\\
+
+\vspace*{0.4cm}
+\large{
+\textbf{12.8.1 Tractable and Intractable Problem}\\
+}
+
+\vspace*{0.2cm}
+
+A problem is called a tractable problem if there is a polynomial time algorithm to solve it for all
+instances. There exists a deterministic Turing machine to solve these problems. In other words, it can
+be said that a problem is called a tractable problem, when there exists a deterministic Turing machine
+M such that\\
+\vspace*{0.2cm}
+
+\begin{itemize}
+  \item M runs in polynomial time on all input\\
+  \item for $x \in L$, M gives output 1\\
+  \item for $x \neq L$, M gives output 0.\\
+\end{itemize}
+
+\vspace*{0.2cm}
+\hspace*{0.5cm} $A$ tractable problem may be of constant $[O(1)]$, logarithmic [O(log n) or $O(n \log n)$], linear
+$[O(n)]$, or polynomial [$O(n^{k})$, where k is a finite number]. The upper bound of a tractable problem is
+$O$(polynomial).\\
+
+
+\end{document}
